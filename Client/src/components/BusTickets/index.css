@@ -1,0 +1,94 @@
+.bt-page-bg {
+  background-color: #e6e6fa;
+  min-height: 100vh;
+  background-size: cover;
+}
+
+.bus-items-style {
+  list-style-type: none;
+}
+
+.dashed-line {
+  border-bottom: 2px dashed gray;
+  margin: 0px 15px;
+}
+
+.bus-line-bg {
+  border: 1px solid gray;
+  padding: 5px 10px;
+  font-size: 20px;
+
+  @media (max-width: 575px) {
+    font-size: 13px !important;
+  }
+}
+
+.bus-travel-date {
+  color: gray;
+  opacity: 0.8;
+}
+
+.no-buses {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.text-orange {
+  color: #ff6f61;
+}
+
+.text-violet {
+  color: #483d8b;
+}
+
+.reserve-seat-btn {
+  background-color: #0088bd;
+  @media (max-width: 575px) {
+    width: 100%;
+  }
+}
+
+.bt-bus-name {
+  @media (max-width: 575px) {
+    font-size: 14px !important;
+  }
+}
+
+.bt-bus-type {
+  @media (max-width: 575px) {
+    font-size: 12px !important;
+  }
+}
+
+.bus-travel-date {
+  @media (max-width: 575px) {
+    font-size: 12px !important;
+  }
+}
+
+.bus-travel-time {
+  @media (max-width: 575px) {
+    font-size: 17px !important;
+  }
+}
+
+.bus-travel-station {
+  @media (max-width: 575px) {
+    font-size: 14px !important;
+  }
+}
+
+.bus-travel-fare-seats {
+  @media (max-width: 575px) {
+    font-size: 12px !important;
+  }
+}
+
+.bus-travel-hr {
+  @media (max-width: 575px) {
+    margin: 7px !important;
+  }
+}

@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap");
+
+.home-bg {
+  background-color: #1e1e2f;
+}
+
+.home-bus-img {
+  width: 80%;
+  @media (min-width: 576px) {
+    width: 60%;
+  }
+  @media (min-width: 768px) {
+    width: 40%;
+  }
+}
+
+.services-heading {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.services-para {
+  font-size: 13px;
+}
+
+.service-item {
+  width: 100%;
+  @media (min-width: 576px) {
+    width: 47%;
+  }
+  @media (min-width: 768px) {
+    width: 30%;
+  }
+}
+
+.route-text {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0px;
+
+  @media (min-width: 768px) {
+  }
+}
+
+.route-heading {
+  font-size: 10px;
+}
+
+.route-time-para {
+  font-size: 10px;
+  padding: 2px 7px;
+}
+
+.reserve-seat-btn {
+  padding: 7px 20px;
+  font-size: 12px;
+}
+
+.popular-route-item {
+  width: 100%;
+  @media (min-width: 576px) {
+    width: 48%;
+  }
+  @media (min-width: 1000px) {
+    width: 30%;
+  }
+}
+
+.route-hr {
+  width: 20px;
+  margin: 0px;
+  border: none;
+  border-top: 2px dotted #000;
+  @media (max-width: 600px) {
+    display: none;
+  }
+}
+
+.banner {
+  height: calc(100vh - 60px);
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+}
+
+.banner .slider {
+  position: absolute;
+  width: 150px;
+  height: 200px;
+  top: 10%;
+  left: calc(50% - 100px);
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(-8deg);
+  animation: autoRun 80s linear infinite;
+  z-index: 2;
+}
+
+@keyframes autoRun {
+  from {
+    transform: perspective(1000px) rotateX(-5deg) rotateY(0deg);
+  }
+  to {
+    transform: perspective(1000px) rotateX(-5deg) rotateY(360deg);
+  }
+}
+
+.slider .item {
+  position: absolute;
+  inset: 0 0 0 0;
+  transform: rotateY(calc((var(--position) - 1) * (360deg / var(--quantity))))
+    translateZ(550px);
+}
+
+.bus-image {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+  border-radius: 7px;
+}
+
+.banner .content {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1400px, 100vw);
+  height: max-content;
+  padding-bottom: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.banner .content h1 {
+  font-family: "Rubik Mono One", monospace;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 5em;
+  line-height: 1em;
+  color: #72b5cf;
+  position: relative;
+}
+
+.banner .content h1::after {
+  position: absolute;
+  inset: 0;
+  content: attr(data-content);
+  z-index: 1;
+  -webkit-text-stroke: 2px white;
+  color: transparent;
+}
+
+.banner .content .modal-img {
+  background: url("../../assets/centerBusImg2.png");
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: top center;
+}

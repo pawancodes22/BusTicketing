@@ -1,0 +1,57 @@
+.register-bg {
+  background-image: url("../../assets/loginBusBg2.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+  @media (min-width: 768px) {
+    padding: 0px 8%;
+  }
+  @media (min-width: 1024px) {
+    padding: 0px 16%;
+  }
+}
+
+.register-form-bg {
+  background-color: rgba(245, 245, 245, 0.5);
+  /* min-height: 120px; */
+  border-radius: 5px;
+  padding: 30px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media (min-width: 768px) {
+    padding: 40px 20px;
+  }
+}
+
+.register-input-element {
+  padding: 10px;
+  border-style: none;
+  border-radius: 5px;
+  width: 230px;
+  font-size: 12px;
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.register-button-font-size {
+  font-size: 12px;
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.register-module-error-text {
+  align-self: flex-start;
+  padding-left: 20px;
+  @media (max-width: 768px) {
+    font-size: 10px;
+    padding-left: 15px;
+  }
+}
+
+.login-link {
+  font-size: 12px;
+}

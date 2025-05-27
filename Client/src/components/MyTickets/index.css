@@ -1,0 +1,76 @@
+.my-tickets-bg {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(-45deg, #f3d351, #f0991a, #ff6ec4, #7873f5);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.tickets-second-bg {
+  background-color: white;
+  width: 80%;
+  @media (max-width: 767px) {
+    width: 98%;
+  }
+}
+
+p {
+  margin: 0px;
+}
+
+.ticket-page-bus-icon {
+  position: absolute;
+  top: 50%;
+  left: 0; /* Stick to the left */
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+}
+
+.custom-bluish-shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 123, 255, 0.2); /* bluish shadow */
+  animation: boxShadower 3s alternate infinite;
+}
+
+@keyframes boxShadower {
+  0% {
+    box-shadow: 0 0.5rem 1rem rgba(0, 123, 255, 0.2);
+  }
+  100% {
+    box-shadow: 0 0.5rem 1rem rgba(0, 123, 255, 0.4);
+  }
+}
+
+.mt-station {
+  font-size: 14px;
+  @media (min-width: 992px) {
+    font-size: 16px;
+  }
+}
+
+.mt-bus-name {
+  font-size: 12px;
+  @media (min-width: 992px) {
+    font-size: 14px;
+  }
+}
+
+.mt-ticket {
+  font-size: 12px;
+  @media (min-width: 992px) {
+    font-size: 14px;
+  }
+}

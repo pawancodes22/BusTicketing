@@ -1,0 +1,14 @@
+const baseUrl = "/api";
+
+const endpoints = {
+  getStationsEndpoint: `${baseUrl}/stationData`,
+  getPopularRoutesEndpoint: `${baseUrl}/popularRoutes`,
+  getBusesByRouteAndDateEndpoint: `${baseUrl}/getBusesByRouteAndDate`,
+  getSeatsByBusIdEndpoint: `${baseUrl}/seat-availability`,
+  registerDataEndpoint: `${baseUrl}/register`,
+  loginUserEndpoint: `${baseUrl}/login`,
+  bookingDetailsEndpoint: `${baseUrl}/bookSeats`,
+  getTicketsEndpoint: `${baseUrl}/getBookedTickets`,
+};
+
+export default endpoints;

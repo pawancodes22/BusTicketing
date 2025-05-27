@@ -1,0 +1,32 @@
+.me-auto {
+  margin-left: auto;
+  margin-right: 0px !important;
+}
+
+.sign-in-btn {
+  border-radius: 20px;
+  padding: 5px 15px;
+}
+
+.navbar-nav .nav-link {
+  padding: 10px 25px !important;
+}
+
+.navbar {
+  background: #00bfff;
+  position: sticky !important;
+  top: 0;
+  z-index: 4;
+}
+
+.nav-profile-img {
+  width: 30px;
+}
+
+.navbar-nav {
+  align-items: center;
+}
+
+.logo-sizer {
+  width: 100px;
+}

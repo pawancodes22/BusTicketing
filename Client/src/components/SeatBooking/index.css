@@ -1,0 +1,130 @@
+.steering-icon {
+  transform: rotate(-90deg);
+  font-size: 20px;
+  margin-top: 15px;
+  @media (min-width: 768px) {
+    font-size: 25px;
+    margin-top: 10px;
+  }
+}
+
+.seat-icon {
+  transform: rotate(90deg);
+  font-size: 20px;
+}
+
+.seat-item {
+  width: 50px;
+  font-size: 10px;
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.driver-seats-divider {
+  border-style: dashed;
+  border-width: 2px;
+  border-color: gray;
+  margin-left: 10px;
+}
+
+.seats-div {
+  width: fit-content !important;
+}
+
+.dashed-border {
+  border-top: 2px dashed black;
+}
+
+.seat-booking-div {
+  width: 100vw;
+}
+
+.hr-border-style {
+  border-style: dashed;
+  border-width: 2px;
+}
+
+.non-refundable-text {
+  background-color: #e6bfbc;
+  color: #845f5a;
+  font-size: 8px !important;
+  @media (min-width: 768px) {
+    font-size: 12px !important;
+  }
+}
+
+#seats-booking ul {
+  padding: 5px;
+  margin-bottom: 7px;
+  @media (min-width: 768px) {
+    margin-bottom: 16px;
+  }
+}
+
+.checkout-container {
+  max-width: 400px;
+  width: 100%;
+}
+
+.seat-type-para {
+  font-size: 13px;
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+#checkout-box p {
+  font-size: 14px;
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.change-route-text {
+  color: #0088bd;
+  font-size: 13px;
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.styled-list {
+  list-style-type: none;
+  margin-right: 13px;
+  background-color: rgb(216, 214, 214);
+  color: rgb(44, 44, 44);
+  border-radius: 5px;
+  padding: 6px;
+}
+
+.checkout-btn {
+  background-color: #0088bd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 15px;
+  width: 250px;
+  margin: auto;
+  display: block;
+}
+
+.small-date-time-text {
+  font-size: 13px !important;
+}
+
+.seat-booking-bg {
+  background-color: #e6e6fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* .seat-booking-heading-container {
+  margin: 0px 50px;
+  height: 30vh;
+  border-radius: 10px;
+  background-image: url("../../assets/seatBookingContainerBg.jpg");
+  background-size: 100% auto;
+  background-position: center 25%;
+} */

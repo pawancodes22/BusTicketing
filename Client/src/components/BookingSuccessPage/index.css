@@ -1,0 +1,9 @@
+.bsp-main-bg {
+  background-color: #e6e6fa;
+  min-height: 90vh;
+  padding: 25px;
+}
+
+.tick-image-resize {
+  width: 100px;
+}
