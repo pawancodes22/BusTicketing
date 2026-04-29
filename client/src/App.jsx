@@ -1,18 +1,22 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import BusTickets from "./components/BusTickets";
 import HomePage from "./components/HomePage";
 import { BrowserRouter, Routes, Route } from "react-router";
-import BusTickets from "./components/BusTickets";
 import SeatBooking from "./components/SeatBooking";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MyTickets from "./components/MyTickets";
 import BookingSuccessPage from "./components/BookingSuccessPage";
+import ScrollToTop from "./utils/ScrollToTop";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/tickets" element={<BusTickets />} />

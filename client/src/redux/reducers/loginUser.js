@@ -8,13 +8,11 @@ export const postLoginData = createAsyncThunk(
   async (loginJSON) => {
     try {
       const response = await axios.post(endpoints.loginUserEndpoint, loginJSON);
-      console.log(response.data);
       return response.data.jwtToken;
     } catch (e) {
-      console.log(e.response.data, "the");
       throw { message: e.response.data };
     }
-  }
+  },
 );
 
 const initialState = {
@@ -25,6 +23,9 @@ const initialState = {
 const loginSlice = createSlice({
   name: "user",
   initialState,
+  reducers: {
+    resetLoginSlice: () => ({ ...initialState }),
+  },
   extraReducers: (builder) => {
     builder.addCase(postLoginData.pending, (state) => {
       state.loginDataPostStatus = statusCodes.loading;
@@ -41,4 +42,5 @@ const loginSlice = createSlice({
   },
 });
 
+export const { resetLoginSlice } = loginSlice.actions;
 export default loginSlice.reducer;

@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
 import profileImg from "../../assets/profileImage.png";
-import logo from "../../assets/kuttyTravelLogo2.png";
+import logo from "../../assets/kuttyTravelLogo6.png";
 import "./index.css";
 import { useState } from "react";
 const NavbarComp = () => {
@@ -29,7 +29,9 @@ const NavbarComp = () => {
           <Nav className="me-auto header-items">
             {/* <Nav.Link href="#home">Home</Nav.Link> */}
             {/* <Nav.Link href="#link">Services</Nav.Link> */}
-            <Nav.Link href="/my-tickets">My Tickets</Nav.Link>
+            <Nav.Link href="/my-tickets" className="text-white">
+              My Tickets
+            </Nav.Link>
             {/* <Nav.Link href="#about">About</Nav.Link> */}
             <div className="position-relative">
               {isUserLoggedIn ? (
@@ -43,21 +45,18 @@ const NavbarComp = () => {
                 </button>
               ) : (
                 <Link to="/login">
-                  <button
-                    className="text-white border-0 sign-in-btn"
-                    style={{ backgroundColor: "#0088bd" }}
-                  >
+                  <button className="text-white border-0 sign-in-btn">
                     Sign In
                   </button>
                 </Link>
               )}
               {toggleBarStatus && (
                 <div
-                  className="p-2 position-absolute bg-secondary"
+                  className="p-2 position-absolute profile-dropdown"
                   style={{ left: "-65%", bottom: "-55px" }}
                 >
                   <button
-                    className="bg-danger text-white border-0 rounded-2 px-3 py-1"
+                    className="logout-btn text-white border-0 rounded-2 px-3 py-1"
                     onClick={onLogOut}
                   >
                     Logout

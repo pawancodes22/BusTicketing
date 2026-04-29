@@ -16,6 +16,7 @@ import busImg4 from "../../assets/3dBus4.jpg";
 import busImg5 from "../../assets/3dBus5.jpg";
 import busImg6 from "../../assets/3dBus6.jpg";
 import busImg7 from "../../assets/3dBus7.jpg";
+import Footer from "../Footer";
 
 const servicesData = [
   {
@@ -40,9 +41,8 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const { popularRoutesData, popularRoutesFetchStatus } = useSelector(
-    (state) => state.getPopularRoutesReducer
+    (state) => state.getPopularRoutesReducer,
   );
-  console.log("popularRoutesData", popularRoutesData);
 
   useEffect(() => {
     dispatch(fetchPopularRoutes());
@@ -50,7 +50,7 @@ const HomePage = () => {
 
   const onSearch = (sourceInput, destInput, dateOfJourney) => {
     navigate(
-      `/tickets?departureStation=${sourceInput}&arrivalStation=${destInput}&travelDate=${dateOfJourney}`
+      `/tickets?departureStation=${sourceInput}&arrivalStation=${destInput}&travelDate=${dateOfJourney}`,
     );
     // window.location.reload();
   };
@@ -138,7 +138,7 @@ const HomePage = () => {
           <SearchBus />
         </div>
         <div className="banner">
-          <div className="slider" style={{ "--quantity": 7 }}>
+          {/* <div className="slider" style={{ "--quantity": 7 }}>
             <div className="item" style={{ "--position": 1 }}>
               <img src={busImg1} className="bus-image" />
             </div>
@@ -160,32 +160,26 @@ const HomePage = () => {
             <div className="item" style={{ "--position": 7 }}>
               <img src={busImg7} className="bus-image" />
             </div>
-          </div>
+          </div> */}
           <div className="content">
-            <h1 data-content="Travel anywhere in India">
-              Travel anywhere in India
-            </h1>
-            {/* <div className="content-para">
-              <h2>Spend Less</h2>
-              <p>Travel More</p>
-            </div> */}
+            <h1 data-content="Kutty Travels">Kutty Travels</h1>
             <div className="modal-img"></div>
           </div>
         </div>
       </div>
       <div className="d-flex flex-column align-items-center p-3 text-black">
         <h1>
-          Our <span style={{ color: "#483D8B" }}>Services</span>
+          Our <span style={{ color: "#b91c1c" }}>Services</span>
         </h1>
         <ul className="d-flex flex-wrap justify-content-center justify-content-md-evenly p-0">
           {servicesData.map((item, index) => (
             <li
               key={index}
               className="text-black d-flex flex-column align-items-center p-3 mb-2 me-2 service-item"
-              style={{ backgroundColor: "#dadada" }}
+              // style={{ backgroundColor: "#dadada" }}
             >
               <div className="d-flex align-items-center mb-3">
-                <div className="bg-secondary p-1 px-2 rounded-2 me-2">
+                <div className="service-icon p-1 px-2 rounded-2 me-2">
                   {item.img}
                 </div>
                 <h1 className="m-0 services-heading">{item.heading}</h1>
@@ -195,7 +189,7 @@ const HomePage = () => {
           ))}
         </ul>
         <h1>
-          Popular <span style={{ color: "#483D8B" }}>Routes</span>
+          Popular <span style={{ color: "#b91c1c" }}>Routes</span>
         </h1>
         <ul className="p-0 d-flex flex-wrap justify-content-between w-100 popular-routes-container">
           {popularRoutesData.map((route) => (
@@ -223,22 +217,23 @@ const HomePage = () => {
                   {route.distance} Kms
                 </p>
                 <button
-                  className="text-white border-0 rounded-2 reserve-seat-btn"
+                  className="rounded-2 reserve-seat-btn"
                   onClick={() =>
                     onSearch(
                       route.fromStation,
                       route.toStation,
-                      new Date().toISOString().split("T")[0]
+                      new Date().toISOString().split("T")[0],
                     )
                   }
                 >
-                  Reserve Seat
+                  Check Availability
                 </button>
               </div>
             </li>
           ))}
         </ul>
       </div>
+      <Footer />
     </div>
   );
 };

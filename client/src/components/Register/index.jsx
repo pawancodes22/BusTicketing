@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import { useDispatch, useSelector } from "react-redux";
-import { postUserData } from "../../redux/reducers/registerUser";
-import logo from "../../assets/kuttyTravelLogo2.png";
+import {
+  postUserData,
+  resetRegisterSlice,
+} from "../../redux/reducers/registerUser";
+import logo from "../../assets/kuttyTravelLogo6.png";
 import statusCodes from "../../utils/statusCodes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Overlay from "../FUF/Overlay/Overlay";
+import { toastSettings } from "../../utils/toastSettings";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { registerData, registerDataFetchStatus } = useSelector(
-    (state) => state.registerUserReducer
+    (state) => state.registerUserReducer,
   );
   const [formDetails, setFormDetails] = useState({
     name: "",
@@ -23,35 +30,40 @@ const Register = () => {
     password: false,
   });
   const verifyDetails = () => {
-    if (formDetails.name === "") {
-      setErrors((error) => ({ ...error, name: true }));
-    } else {
-      setErrors((error) => ({ ...error, name: false }));
-    }
-    if (formDetails.username === "") {
-      setErrors((error) => ({ ...error, username: true }));
-    } else {
-      setErrors((error) => ({ ...error, username: false }));
-    }
-    if (formDetails.password === "") {
-      setErrors((error) => ({ ...error, password: true }));
-    } else {
-      setErrors((error) => ({ ...error, password: false }));
-    }
-    return !errors.name && !errors.username && !errors.password;
+    const newErrors = {
+      name: formDetails.name === "",
+      username: formDetails.username === "",
+      password: formDetails.password === "",
+    };
+    setErrors(newErrors);
+    return !newErrors.name && !newErrors.username && !newErrors.password;
   };
   const submitForm = (e) => {
     e.preventDefault();
     if (verifyDetails()) {
       dispatch(postUserData(formDetails));
-      setFormDetails({ username: "", name: "", password: "", gender: "" });
+      // setFormDetails({ username: "", name: "", password: "", gender: "Male" });
     }
   };
+
+  useEffect(() => {
+    if (registerDataFetchStatus === statusCodes.success) {
+      toast.success("Account created successfully", toastSettings);
+      navigate("/login");
+    }
+  }, [registerDataFetchStatus, navigate]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetRegisterSlice());
+    };
+  }, []);
+
   return (
     <>
       <Link to="/">
         <button
-          className="position-absolute rounded-2 text-white bg-transparent border-0 text-decoration-underline"
+          className="register-back-btn position-absolute rounded-2 bg-transparent border-0 text-decoration-underline"
           style={{ top: "20px", left: "20px" }}
         >
           Back
@@ -59,14 +71,15 @@ const Register = () => {
       </Link>
       <div className="register-bg d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center">
         <div className="text-white">
-          <h1 className="fs-1 fw-bolder mb-2">Be Sure</h1>
-          <p>
-            Now no need to go anywhere, witness <br />
-            the quality bus services with Kutty Travels Pvt. Ltd.
+          <h1 className="register-hero-title">
+            Start your journey, <span> Traveler</span>
+          </h1>
+          <p className="register-hero-subtitle">
+            Start exploring routes across India with ease.
           </p>
         </div>
         <form className="register-form-bg" onSubmit={submitForm}>
-          <img src={logo} className="logo-sizer mb-2" />
+          <img src={logo} className="register-logo-sizer mb-4" />
           <input
             className={`register-input-element ${
               errors.username ? "" : "mb-3"
@@ -110,14 +123,14 @@ const Register = () => {
               *Field Required
             </p>
           )}
-          <div className="d-flex flex-md-row">
-            <label className="me-4 ">
+          <div className="d-flex flex-md-row text-white">
+            <label className="me-4 d-flex align-items-center">
               <input
                 type="radio"
                 name="Gender"
                 value="Male"
                 className="me-1"
-                defaultChecked
+                checked={formDetails.gender === "Male"}
                 onChange={(e) =>
                   setFormDetails((prev) => ({
                     ...prev,
@@ -127,12 +140,13 @@ const Register = () => {
               />
               Male
             </label>
-            <label className="me-4">
+            <label className="me-4 d-flex align-items-center">
               <input
                 type="radio"
                 name="Gender"
                 value="Female"
                 className="me-1"
+                checked={formDetails.gender === "Female"}
                 onChange={(e) =>
                   setFormDetails((prev) => ({
                     ...prev,
@@ -142,12 +156,13 @@ const Register = () => {
               />
               Female
             </label>
-            <label>
+            <label className="d-flex align-items-center">
               <input
                 type="radio"
                 name="Gender"
                 value="Others"
                 className="me-1"
+                checked={formDetails.gender === "Others"}
                 onChange={(e) =>
                   setFormDetails((prev) => ({
                     ...prev,
@@ -159,7 +174,7 @@ const Register = () => {
             </label>
           </div>
           <div className="d-flex flex-column align-items-center">
-            <button className="register-button-font-size m-auto d-block mt-2 btn btn-primary text-white text-uppercase rounded-5 px-5">
+            <button className="register-button-style m-auto d-block mt-2 btn text-white rounded-2 px-5">
               Register
             </button>
             {registerDataFetchStatus === statusCodes.error && (
@@ -173,6 +188,9 @@ const Register = () => {
           </div>
         </form>
       </div>
+      {registerDataFetchStatus === statusCodes.success && (
+        <Overlay msg="Registration successful... Redirecting to login page" />
+      )}
     </>
   );
 };

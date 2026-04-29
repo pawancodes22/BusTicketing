@@ -3,15 +3,25 @@
 }
 
 .exchange-symbol {
-  background-color: #0088bd;
-  color: white;
+  color: #b91c1c;
+  background-color: #fef2f2;
   font-size: 22px;
 }
 
 .exchange-div {
-  background-color: #0088bd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
   padding: 5px 20px;
   border-radius: 10px;
+}
+
+.exchange-div:hover {
+  /* background-color: #fee2e2; */
+  transform: rotate(180deg);
+  transition: all 0.3s ease;
 }
 
 .input-date {
@@ -19,12 +29,18 @@
 }
 
 .home-search-btn {
-  background-color: #0088bd;
+  background-color: #b91c1c; /* deep red */
   color: white;
   border: none;
   border-radius: 7px;
   font-size: 13px;
   padding: 10px 20px;
+  transition: all 0.2s ease;
+}
+
+.home-search-btn:hover {
+  background-color: #991b1b;
+  transform: translateY(-1px);
 }
 
 .station-suggestion-item {

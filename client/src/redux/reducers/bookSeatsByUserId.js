@@ -8,7 +8,6 @@ export const bookSeats = createAsyncThunk(
   async (bookingDetailsJSON) => {
     try {
       const jwtToken = sessionStorage.getItem("jwtToken");
-      console.log("inside reducer", bookingDetailsJSON);
       const response = await axios.post(
         endpoints.bookingDetailsEndpoint,
         bookingDetailsJSON,
@@ -16,13 +15,13 @@ export const bookSeats = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${jwtToken}`,
           },
-        }
+        },
       );
       return response.data;
     } catch (e) {
       throw { message: e.response.data };
     }
-  }
+  },
 );
 
 const initialState = {

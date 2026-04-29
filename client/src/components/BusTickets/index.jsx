@@ -7,12 +7,12 @@ import { fetchBusesByRouteAndDate } from "../../redux/reducers/getBusesByRouteAn
 import { FaBus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import NavbarComp from "../NavbarComp";
+import Footer from "../Footer";
 const BusTickets = () => {
   const dispatch = useDispatch();
   const { busesByRouteAndDateData } = useSelector(
-    (state) => state.getBusesByRouteAndDateReducer
+    (state) => state.getBusesByRouteAndDateReducer,
   );
-  console.log("bsd", busesByRouteAndDateData);
   const [busTypeFilter, alterBusTypeFilter] = useState("");
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -43,7 +43,9 @@ const BusTickets = () => {
     <div className="bt-page-bg">
       <NavbarComp />
       <div className="d-flex flex-column align-items-center">
-        <h1 className="text-violet my-2 fw-bold">Reserve Your Tickets</h1>
+        <h1 className="text-heading my-2 fw-bold">
+          Reserve Your <span className="text-span">Tickets</span>
+        </h1>
         <SearchBus
           departureStation={departureStation}
           arrivalStation={arrivalStation}
@@ -52,7 +54,9 @@ const BusTickets = () => {
       </div>
       <div className="p-3 d-flex">
         <div className="d-none d-md-block">
-          <h1 style={{ color: "#483D8B" }}>Apply Filters</h1>
+          <h1>
+            Apply <span className="text-span">Filters</span>
+          </h1>
           <div className="border-2 p-2 bg-white d-flex flex-column">
             <h2>Bus Types</h2>
             <label>
@@ -88,7 +92,7 @@ const BusTickets = () => {
               <span>A/C Seater</span>
             </label>
             <span
-              className="text-primary"
+              className="text-span"
               style={{ cursor: "pointer" }}
               onClick={() => alterBusTypeFilter("")}
             >
@@ -152,7 +156,7 @@ const BusTickets = () => {
                       to={`/seat-booking/${item.busId}?travelDate=${travelDate}`}
                       state={{ ...item, arrivalStation, departureStation }}
                     >
-                      <button className="text-white border-0 rounded-2 reserve-seat-btn">
+                      <button className="rounded-2 bus-reserve-seat-btn">
                         Reserve Seat
                       </button>
                     </Link>
@@ -201,6 +205,7 @@ const BusTickets = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

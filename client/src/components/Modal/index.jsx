@@ -2,11 +2,11 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "./index.css";
-import { TbLayersSelected } from "react-icons/tb";
 import statusCodes from "../../utils/statusCodes";
 
 function MyVerticallyCenteredModal(props) {
   const { busDetails, selectedSeats, onConfirm, bookingDataStatus } = props;
+
   const {
     arrivalDate,
     arrivalTime,
@@ -15,47 +15,53 @@ function MyVerticallyCenteredModal(props) {
     departureDate,
     departureTime,
     fare,
-    noOfSeats,
-    arrivalStation,
-    departureStation,
   } = busDetails;
+
   return (
     <Modal
       {...props}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      contentClassName="custom-modal"
     >
-      <Modal.Header closeButton>
-        {!bookingDataStatus === statusCodes.success ? (
-          <Modal.Title id="contained-modal-title-vcenter">
-            Confirm Your Journey Details
+      <Modal.Header closeButton className="custom-modal-header">
+        {bookingDataStatus !== statusCodes.success && (
+          <Modal.Title className="modal-title">
+            Confirm Your Journey
           </Modal.Title>
-        ) : null}
+        )}
       </Modal.Header>
-      <Modal.Body className="modal-bg-img">
-        <h4>
-          {busName} - {busType}
+
+      <Modal.Body className="custom-modal-body">
+        <h4 className="bus-title">
+          {busName} <span>{busType}</span>
         </h4>
-        <p>
+
+        <p className="time-text">
           {departureDate} {departureTime} → {arrivalDate} {arrivalTime}
         </p>
-        <ul>
+
+        <div className="seat-container">
           {selectedSeats.map((seatItem, index) => (
-            <li key={index}>{seatItem}</li>
+            <span key={index} className="seat-tag">
+              {seatItem}
+            </span>
           ))}
-        </ul>
-        <h4>Total Fare: ₹{selectedSeats.length * fare}</h4>
+        </div>
+
+        <div className="total-fare">
+          Total Fare <span>₹{selectedSeats.length * fare}</span>
+        </div>
       </Modal.Body>
-      <Modal.Footer>
-        <Button
-          onClick={props.onHide}
-          className="border border-secondary bg-transparent"
-        >
+
+      <Modal.Footer className="custom-modal-footer">
+        <Button onClick={props.onHide} className="cancel-btn">
           Close
         </Button>
+
         <Button
-          className="bg-primary"
+          className="confirm-btn"
           onClick={() => {
             props.onHide();
             onConfirm();

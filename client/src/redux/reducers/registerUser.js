@@ -11,25 +11,25 @@ const initialState = {
 export const postUserData = createAsyncThunk(
   "user/post",
   async (userDetails) => {
-    console.log("form details", userDetails);
     try {
       const response = await axios.post(
         endpoints.registerDataEndpoint,
-        userDetails
+        userDetails,
       );
 
-      console.log(response.data);
       return response.data;
     } catch (e) {
-      console.log(e.response.data);
       throw { message: e.response.data };
     }
-  }
+  },
 );
 
 const registerSlice = createSlice({
   name: "user",
   initialState,
+  reducers: {
+    resetRegisterSlice: () => ({ ...initialState }),
+  },
   extraReducers: (builder) => {
     builder.addCase(postUserData.pending, (state) => {
       state.registerDataFetchStatus = statusCodes.loading;
@@ -45,4 +45,5 @@ const registerSlice = createSlice({
   },
 });
 
+export const { resetRegisterSlice } = registerSlice.actions;
 export default registerSlice.reducer;

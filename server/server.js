@@ -24,7 +24,7 @@ const initializeDBAndServer = async () => {
       driver: sqlite3.Database,
     });
     app.listen(PORT, () =>
-      console.log(`Server is up and running on port ${PORT}`)
+      console.log(`Server is up and running on port ${PORT}`),
     );
   } catch (e) {
     process.exit(1);
@@ -166,7 +166,7 @@ app.get(`${baseUrl}/getBusesByRouteAndDate`, async (request, response) => {
         arrivalDate: formattedArrivalDate,
         noOfSeats,
       };
-    })
+    }),
   );
   response.json(jsonResponse);
 });
@@ -269,7 +269,7 @@ app.get(
       },
     };
     response.send(rows);
-  }
+  },
 );
 
 const getSeatCount = async (busId, travelDate) => {
@@ -393,7 +393,7 @@ app.post(
       postBookingDetailsFn(item);
     });
     response.send("Booking completed successfully");
-  }
+  },
 );
 
 app.get(
@@ -420,7 +420,7 @@ GROUP BY
       seats: item.seats.split(","),
     }));
     response.send(modifiedResponse);
-  }
+  },
 );
 
 app.get("*", (req, res) => {

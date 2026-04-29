@@ -11,10 +11,9 @@ const SearchBus = ({ departureStation, arrivalStation, travelDate }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { stationData, getStationDataStatus } = useSelector(
-    (state) => state.getStationsReducer
+    (state) => state.getStationsReducer,
   );
   const [sourceInput, alterSourceInput] = useState("");
-  console.log("source input changed to ", sourceInput);
   const [showSourceSuggestionBar, alterShowSourceSuggestionBar] =
     useState(false);
   const [isSourceInFocus, setIsSourceInFocus] = useState(false);
@@ -71,10 +70,9 @@ const SearchBus = ({ departureStation, arrivalStation, travelDate }) => {
         !sourceFieldRef.current.contains(event.target)
       ) {
         const isInputASelectedOne = !stationData.some(
-          (item) => item.name.toLowerCase() === sourceInput.toLowerCase()
+          (item) => item.name.toLowerCase() === sourceInput.toLowerCase(),
         );
         if (isInputASelectedOne) {
-          console.log("inside stationData", stationData);
           alterSourceInput(stationData[0].name);
         }
         alterShowSourceSuggestionBar(false);
@@ -108,7 +106,7 @@ const SearchBus = ({ departureStation, arrivalStation, travelDate }) => {
         !sourceFieldRef.current.contains(event.target)
       ) {
         const isInputASelectedOne = !stationData.some(
-          (item) => item.name.toLowerCase() === sourceInput.toLowerCase()
+          (item) => item.name.toLowerCase() === sourceInput.toLowerCase(),
         );
         if (isInputASelectedOne) {
           alterSourceInput(stationData[0].name);
@@ -127,7 +125,7 @@ const SearchBus = ({ departureStation, arrivalStation, travelDate }) => {
         !destFieldRef.current.contains(event.target)
       ) {
         const isInputASelectedOne = !stationData.some(
-          (item) => item.name.toLowerCase() === destInput.toLowerCase()
+          (item) => item.name.toLowerCase() === destInput.toLowerCase(),
         );
         if (isInputASelectedOne) {
           alterDestInput(stationData[1].name);
@@ -152,19 +150,25 @@ const SearchBus = ({ departureStation, arrivalStation, travelDate }) => {
 
   useEffect(() => {
     alterSourceInput(
-      stationData.length > 0 ? departureStation || stationData[0].name : ""
+      stationData.length > 0 ? departureStation || stationData[0].name : "",
     );
     alterDestInput(
-      stationData.length > 0 ? arrivalStation || stationData[1].name : ""
+      stationData.length > 0 ? arrivalStation || stationData[1].name : "",
     );
   }, [stationData]);
 
   const onSearch = () => {
     navigate(
       `/tickets?departureStation=${sourceInput}&arrivalStation=${destInput}&travelDate=${dateOfJourney}`,
-      { replace: true }
+      { replace: true },
     );
     window.location.reload();
+  };
+
+  const swapStations = () => {
+    const sourceStation = sourceInput;
+    alterSourceInput(destInput);
+    alterDestInput(sourceStation);
   };
 
   return (
@@ -199,9 +203,9 @@ const SearchBus = ({ departureStation, arrivalStation, travelDate }) => {
           </ul>
         )}
       </div>
-      <div className="align-self-center exchange-div">
+      <button className="align-self-center exchange-div" onClick={swapStations}>
         <TbArrowsExchange className="exchange-symbol" />
-      </div>
+      </button>
       <div
         className="text-black d-flex align-items-center justify-content-between border border-1 position-relative px-2"
         ref={destFieldRef}

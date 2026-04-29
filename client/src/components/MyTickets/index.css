@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(-45deg, #f3d351, #f0991a, #ff6ec4, #7873f5);
+  background-color: #f1f5f9;
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
 }
@@ -73,4 +73,12 @@ p {
   @media (min-width: 992px) {
     font-size: 14px;
   }
+}
+
+.my-ticket-page {
+  min-height: 85vh;
+}
+
+.mt-seat-no {
+  background-color: #b91c1c;
 }

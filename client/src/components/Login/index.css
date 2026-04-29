@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 .login-bg {
   background-image: url("../../assets/loginBusBg2.jpg");
   background-size: cover;
@@ -12,9 +13,26 @@
   }
 }
 
+.login-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+  z-index: 0;
+}
+
+.login-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
 .login-form-bg {
-  background-color: rgba(245, 245, 245, 0.5);
-  border-radius: 5px;
+  transition: all 2s ease;
+  background-color: rgba(245, 245, 245, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
   padding: 30px 10px;
   display: flex;
   flex-direction: column;
@@ -23,24 +41,57 @@
   @media (min-width: 768px) {
     padding: 40px 20px;
   }
+  @media (max-width: 767px) {
+    background-color: rgba(245, 245, 245, 0.4);
+  }
 }
 
 .login-input-element {
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
   padding: 10px;
-  border-style: none;
+  border: none;
   border-radius: 5px;
+  outline: none;
+  /* color: white; */
   width: 230px;
-  font-size: 12px;
+  font-size: 13px;
   @media (min-width: 768px) {
     font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 15px;
   }
 }
 
-.login-button-font-size {
-  font-size: 12px;
+.login-input-element:focus {
+  box-shadow: 0 0 0 3px rgba(153, 27, 27, 0.25);
+  transition: all 0.3s ease;
+}
+
+.login-input-element::placeholder {
+  color: rgba(0, 0, 0, 0.7);
+
+  /* color: black; */
+}
+
+.login-button-style {
+  background: #991b1b;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(153, 27, 27, 0.4);
+  border: none;
+  font-size: 13px;
   @media (min-width: 768px) {
     font-size: 14px;
   }
+  @media (min-width: 1024px) {
+    font-size: 15px;
+  }
+}
+
+.login-button-style:hover {
+  background-color: #7f1616;
+  transform: translateY(-1px);
 }
 
 .login-module-error-text {
@@ -52,4 +103,87 @@
 
 .register-link {
   font-size: 12px;
+  /* color: #991b1b; */
+  font-weight: 500;
+  @media (min-width: 768px) {
+    font-size: 13px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+}
+
+.lg-head {
+  font-family: "Outline", sans-serif;
+}
+
+.colour-p {
+  color: #cbd5f5;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  @media (max-width: 1024px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 767px) {
+    font-size: 1.5rem;
+  }
+}
+
+.hero-title span {
+  color: #991b1b;
+}
+
+.hero-subtitle {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 400px;
+  line-height: 1.6;
+  @media (max-width: 1024px) {
+    font-size: 1rem;
+  }
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.hero-title {
+  animation: slideFade 0.8s ease forwards;
+}
+
+.hero-subtitle {
+  animation: slideFade 1s ease forwards;
+}
+
+@keyframes slideFade {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero-title::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #991b1b;
+  margin-bottom: 10px;
+  border-radius: 2px;
+}
+
+.login-back-text {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.login-form-bg .logo-sizer {
+  width: 170px;
 }

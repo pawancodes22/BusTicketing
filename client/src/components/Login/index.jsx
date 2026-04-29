@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postLoginData } from "../../redux/reducers/loginUser";
-import logo from "../../assets/kuttyTravelLogo2.png";
+import { postLoginData, resetLoginSlice } from "../../redux/reducers/loginUser";
+import logo from "../../assets/kuttyTravelLogo6.png";
 import "./index.css";
 import statusCodes from "../../utils/statusCodes";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Overlay from "../FUF/Overlay/Overlay";
+import { toast } from "react-toastify";
+import { toastSettings } from "../../utils/toastSettings";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -15,7 +17,7 @@ const Login = () => {
     password: "",
   });
   const { loginData, loginDataPostStatus } = useSelector(
-    (state) => state.loginUserReducer
+    (state) => state.loginUserReducer,
   );
   const [errors, setErrors] = useState({ username: false, password: false });
 
@@ -44,33 +46,48 @@ const Login = () => {
   };
 
   useEffect(() => {
+    // let timer;
+    // if (loginDataPostStatus === statusCodes.success) {
+    //   timer = setTimeout(() => {
+    //     navigate("/");
+    //   }, 3000);
+    // }
+    // return () => {
+    //   clearTimeout(timer);
+    // };
     if (loginDataPostStatus === statusCodes.success) {
-      setTimeout(() => {
-        navigate("/");
-      }, 3000);
+      toast.success("Logged in successfully", toastSettings);
+      navigate("/");
     }
   }, [loginDataPostStatus, navigate]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetLoginSlice());
+    };
+  }, [dispatch]);
 
   return (
     <>
       <Link to="/">
         <button
-          className="position-absolute rounded-2 text-white bg-transparent border-0 text-decoration-underline"
+          className="login-back-text z-2 position-absolute rounded-2 bg-transparent border-0 text-decoration-underline"
           style={{ top: "20px", left: "20px" }}
         >
           Back
         </button>
       </Link>
       <div className="login-bg d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center">
-        <div className="text-white mb-5 mb-md-0">
-          <h1 className="fs-1 fw-bolder mb-2">Be Sure</h1>
-          <p>
-            Now no need to go anywhere, witness <br />
-            the quality bus services with Kutty Travels Pvt. Ltd.
-          </p>
+        <div className="text-white mb-md-5 ">
+          <h1 class="hero-title">
+            Welcome back,
+            <span> Traveler</span>
+          </h1>
+
+          <p class="hero-subtitle">Your next journey is just a login away.</p>
         </div>
         <form className="login-form-bg" onSubmit={submitForm}>
-          <img src={logo} className="logo-sizer" />
+          <img src={logo} className="logo-sizer mb-4" />
           <div>
             <input
               className="login-input-element"
@@ -101,7 +118,7 @@ const Login = () => {
                 }))
               }
             />
-            {errors.username && (
+            {errors.password && (
               <p className="text-danger login-module-error-text mb-0">
                 *Field Required
               </p>
@@ -109,7 +126,7 @@ const Login = () => {
           </div>
           <div className="d-flex flex-column align-items-center">
             <button
-              className="m-auto d-block mt-2 btn btn-primary text-white rounded-2 px-5 login-button-font-size"
+              className="m-auto d-block mt-2 mb-1 btn text-white rounded-2 px-5 login-button-style"
               type="submit"
             >
               Login
@@ -120,15 +137,15 @@ const Login = () => {
                 *{loginData}
               </p>
             )}
-            {loginDataPostStatus === statusCodes.success && (
-              <Overlay msg="Login successful... Redirecting to homepage" />
-            )}
             <Link to="/register" className="text-white register-link">
               Register
             </Link>
           </div>
         </form>
       </div>
+      {/* {loginDataPostStatus === statusCodes.success && (
+        <Overlay msg="Login successful... Redirecting to homepage" />
+      )} */}
     </>
   );
 };

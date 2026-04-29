@@ -1,5 +1,5 @@
 .bt-page-bg {
-  background-color: #e6e6fa;
+  background-color: #f1f5f9;
   min-height: 100vh;
   background-size: cover;
 }
@@ -44,11 +44,20 @@
   color: #483d8b;
 }
 
-.reserve-seat-btn {
-  background-color: #0088bd;
-  @media (max-width: 575px) {
-    width: 100%;
-  }
+.bus-reserve-seat-btn {
+  padding: 7px 20px;
+  font-size: 12px;
+  max-width: 150px;
+  color: #991b1b;
+  background: transparent;
+  border: 1px solid #991b1b;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+.bus-reserve-seat-btn:hover {
+  color: white;
+  background-color: #7f1d1d;
+  transform: translateY(-1px);
 }
 
 .bt-bus-name {
@@ -91,4 +100,8 @@
   @media (max-width: 575px) {
     margin: 7px !important;
   }
+}
+
+.text-span {
+  color: #b91c1c;
 }

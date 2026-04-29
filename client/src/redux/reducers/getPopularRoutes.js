@@ -5,11 +5,9 @@ import statusCodes from "../../utils/statusCodes";
 export const fetchPopularRoutes = createAsyncThunk(
   "popularRoutes/fetch",
   async () => {
-    console.log("endpoints are ", endpoints);
     const response = await axios.get(endpoints.getPopularRoutesEndpoint);
-    console.log(response.data);
     return response.data;
-  }
+  },
 );
 
 const initialState = {

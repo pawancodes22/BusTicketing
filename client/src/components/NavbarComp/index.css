@@ -5,15 +5,33 @@
 
 .sign-in-btn {
   border-radius: 20px;
-  padding: 5px 15px;
+  padding: 6px 16px;
+  background-color: #991b1b;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.sign-in-btn:hover {
+  background-color: #7f1d1d;
+  transform: translateY(-1px);
 }
 
 .navbar-nav .nav-link {
-  padding: 10px 25px !important;
+  padding: 8px 18px !important;
+  color: #cbd5f5 !important;
+  transition: 0.2s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: white !important;
 }
 
 .navbar {
-  background: #00bfff;
+  /* background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px); */
+  padding: 10px 0px;
+  background-color: #020617;
+  color: white;
   position: sticky !important;
   top: 0;
   z-index: 4;
@@ -28,5 +46,27 @@
 }
 
 .logo-sizer {
-  width: 100px;
+  height: 100%;
+  border-radius: 2px !important;
+}
+
+.navbar-brand {
+  padding: 0px;
+}
+
+.profile-dropdown {
+  background-color: #020617;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 8px;
+}
+.logout-btn {
+  background-color: #991b1b;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.logout-btn:hover {
+  background-color: #7f1d1d;
 }

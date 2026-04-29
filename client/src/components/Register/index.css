@@ -12,9 +12,28 @@
   }
 }
 
+.register-bg::before {
+  position: absolute;
+  content: "";
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+}
+
+.register-bg > * {
+  z-index: 1;
+}
+
+.register-back-btn {
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .register-form-bg {
-  background-color: rgba(245, 245, 245, 0.5);
-  /* min-height: 120px; */
+  transition: all 2s ease;
+  background-color: rgba(245, 245, 245, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   padding: 30px 10px;
   display: flex;
@@ -23,6 +42,9 @@
   @media (min-width: 768px) {
     padding: 40px 20px;
   }
+  @media (max-width: 767px) {
+    background-color: rgba(245, 245, 245, 0.4);
+  }
 }
 
 .register-input-element {
@@ -30,17 +52,52 @@
   border-style: none;
   border-radius: 5px;
   width: 230px;
-  font-size: 12px;
+  font-size: 13px;
+  outline: none;
   @media (min-width: 768px) {
     font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 15px;
   }
 }
 
-.register-button-font-size {
-  font-size: 12px;
+.register-bg label {
+  font-size: 13px;
   @media (min-width: 768px) {
     font-size: 14px;
   }
+  @media (min-width: 1024px) {
+    font-size: 15px;
+  }
+}
+
+.register-input-element:focus {
+  box-shadow: 0 0 0 3px rgba(153, 27, 27, 0.25);
+  transition: all 0.3s ease;
+}
+
+.register-input-element::placeholder {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.register-button-style {
+  font-size: 13px;
+  background-color: #991b1b;
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 15px;
+  }
+}
+.register-button-style:hover {
+  background-color: #7f1616;
+  transform: translateY(-1px);
+}
+
+input[type="radio"] {
+  accent-color: #991b1b;
 }
 
 .register-module-error-text {
@@ -54,4 +111,55 @@
 
 .login-link {
   font-size: 12px;
+  @media (min-width: 768px) {
+    font-size: 13px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+}
+
+.register-hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  animation: slideFade 0.8s ease forwards;
+  @media (max-width: 1024px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 767px) {
+    font-size: 1.5rem;
+  }
+}
+
+.register-hero-title span {
+  color: #991b1b;
+}
+
+.register-hero-title::before {
+  content: "";
+  height: 3px;
+  width: 50px;
+  background-color: #991b1b;
+  z-index: 1;
+  display: block;
+}
+
+.register-hero-subtitle {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 400px;
+  line-height: 1.6;
+  animation: slideFade 1s ease forwards;
+  @media (max-width: 1024px) {
+    font-size: 1rem;
+  }
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.register-logo-sizer {
+  width: 180px;
 }

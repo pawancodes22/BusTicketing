@@ -4,13 +4,13 @@ import "./index.css";
 import NavbarComp from "../NavbarComp";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTickets } from "../../redux/reducers/getTicketsByUserId";
+import Footer from "../Footer";
 
 const MyTickets = () => {
   const dispatch = useDispatch();
   const { ticketsData, ticketsDataFetchStatus } = useSelector(
-    (state) => state.tickets
+    (state) => state.tickets,
   );
-  console.log("the tickets data is", ticketsData);
   useEffect(() => {
     dispatch(fetchTickets());
   }, [dispatch]);
@@ -84,15 +84,17 @@ const MyTickets = () => {
   return (
     <div className="my-tickets-bg">
       <NavbarComp />
-      <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center py-5">
+      <div className="my-ticket-page flex-grow-1 d-flex flex-column align-items-center justify-content-center py-5">
         <ul className="tickets-second-bg rounded-4 list-unstyled p-4">
-          <h1 className="text-center text-violet">My Tickets</h1>
+          <h1 className="text-center">
+            My <span className="text-span">Tickets</span>
+          </h1>
           {ticketsData.length > 0 ? (
             ticketsData.map((ticketItem, index) => {
               return (
                 <li
                   key={index}
-                  className="list-unstyled border border-1 custom-bluish-shadow rounded-1 p-1 position-relative my-4"
+                  className="list-unstyled border border-1 shadow-lg rounded-1 p-1 position-relative my-4"
                 >
                   <div className="z-index-1 position-absolute ticket-page-bus-icon bg-white border rounded-5 d-flex justify-content-center align-items-center">
                     <FaBusAlt />
@@ -113,11 +115,10 @@ const MyTickets = () => {
                       </div>
                     </div>
                     <ul className="mt-2 mt-md-0 d-flex flex-wrap gap-2 list-unstyled">
-                      {console.log(ticketItem.seats)}
                       {ticketItem.seats.map((item, index) => (
                         <div
                           key={index}
-                          className="bg-primary rounded-2 p-2 text-white mt-ticket"
+                          className="rounded-2 p-2 text-white mt-ticket mt-seat-no"
                         >
                           {item}
                         </div>
@@ -158,6 +159,7 @@ const MyTickets = () => {
           )}
         </ul>
       </div>
+      <Footer />
     </div>
   );
 };

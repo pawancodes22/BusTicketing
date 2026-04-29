@@ -6,13 +6,11 @@ import statusCodes from "../../utils/statusCodes";
 export const fetchBusesByRouteAndDate = createAsyncThunk(
   "buses/fetchBuses",
   async (journeyDetailsJSON) => {
-    console.log("jjson", journeyDetailsJSON);
     const response = await axios.get(
-      `${endpoints.getBusesByRouteAndDateEndpoint}?departureStation=${journeyDetailsJSON.departureStation}&arrivalStation=${journeyDetailsJSON.arrivalStation}&travelDate=${journeyDetailsJSON.travelDate}&busType=${journeyDetailsJSON.busTypeFilter}`
+      `${endpoints.getBusesByRouteAndDateEndpoint}?departureStation=${journeyDetailsJSON.departureStation}&arrivalStation=${journeyDetailsJSON.arrivalStation}&travelDate=${journeyDetailsJSON.travelDate}&busType=${journeyDetailsJSON.busTypeFilter}`,
     );
-    console.log("fetching bus by route", response.data);
     return response.data;
-  }
+  },
 );
 
 const initialState = {

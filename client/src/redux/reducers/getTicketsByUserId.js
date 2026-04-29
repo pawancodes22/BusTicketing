@@ -15,7 +15,6 @@ export const fetchTickets = createAsyncThunk("tickets/fetch", async () => {
       Authorization: `Bearer ${jwtToken}`,
     },
   });
-  console.log(jwtToken, response);
   return response.data;
 });
 

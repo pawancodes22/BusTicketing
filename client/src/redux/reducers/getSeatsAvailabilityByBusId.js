@@ -19,18 +19,14 @@ export const fetchSeatsAvailability = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${jwtToken}`,
           },
-        }
+        },
       );
 
-      console.log(
-        `${endpoints.getSeatsByBusIdEndpoint}/${fetchSeatsJSON.busId}?travelDate=${fetchSeatsJSON.travelDate}`
-      );
       return response.data;
     } catch (error) {
-      console.log(error);
-      console.log("error is ", error);
+      return error.response?.message || "Error while fetching seats";
     }
-  }
+  },
 );
 
 const getSeatsAvailabilitySlice = createSlice({
