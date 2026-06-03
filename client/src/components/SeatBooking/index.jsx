@@ -18,6 +18,7 @@ import MyVerticallyCenteredModal from "../Modal";
 import Footer from "../Footer";
 import { toast } from "react-toastify";
 import { toastSettings } from "../../utils/toastSettings";
+import { useCallback } from "react";
 const SeatBooking = () => {
   // Unified structure for seat rows
   const dispatch = useDispatch();
@@ -48,66 +49,22 @@ const SeatBooking = () => {
     (state) => state.bookingReducer,
   );
 
+  const fetchData = useCallback(async () => {
+    const fetchSeatsJSON = { busId, travelDate };
+    dispatch(fetchSeatsAvailability(fetchSeatsJSON));
+  }, [busId, travelDate, dispatch]);
+
   useEffect(() => {
-    if (bookingDataStatus === statusCodes.success) {
-      // fetchData();
-      // setTimeout(() => {
-      //   navigate("/");
-      // }, 3000);
+    if (bookingDataStatus === statusCodes.error) {
+      toast.error(bookingData, toastSettings);
+      fetchData();
     }
     setSelectedSeats([]);
-  }, [bookingDataStatus]);
+  }, [bookingDataStatus, fetchData, bookingData]);
 
   useEffect(() => {
     dispatch(resetBookingState());
   }, [dispatch]);
-
-  // const rows = {
-  //   firstRow: {
-  //     B1: "booked",
-  //     B3: "booked",
-  //     B5: "booked",
-  //     B7: "available",
-  //     B9: "available",
-  //     B11: "booked",
-  //     B13: "booked",
-  //     B15: "available",
-  //     B17: "available",
-  //   },
-  //   secondRow: {
-  //     B2: "booked",
-  //     B4: "booked",
-  //     B6: "booked",
-  //     B8: "available",
-  //     B10: "available",
-  //     B12: "booked",
-  //     B14: "booked",
-  //     B16: "available",
-  //     B18: "available",
-  //   },
-  //   thirdRow: {
-  //     A1: "booked",
-  //     A3: "booked",
-  //     A5: "booked",
-  //     A7: "available",
-  //     A9: "available",
-  //     A11: "booked",
-  //     A13: "booked",
-  //     A15: "available",
-  //     A17: "available",
-  //   },
-  //   fourthRow: {
-  //     A2: "booked",
-  //     A4: "booked",
-  //     A6: "booked",
-  //     A8: "available",
-  //     A10: "available",
-  //     A12: "booked",
-  //     A14: "booked",
-  //     A16: "available",
-  //     A18: "available",
-  //   },
-  // };
 
   const typeOfSeats = [
     { name: "Available", icon: <MdOutlineChair className="available-seat" /> },
@@ -136,14 +93,9 @@ const SeatBooking = () => {
     }
   };
 
-  const fetchData = async () => {
-    const fetchSeatsJSON = { busId, travelDate };
-    dispatch(fetchSeatsAvailability(fetchSeatsJSON));
-  };
-
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const onCheckout = () => {
     // const postBookingDetailsJSON = {
@@ -153,19 +105,24 @@ const SeatBooking = () => {
     // };
     // dispatch(bookSeats(postBookingDetailsJSON));
     if (selectedSeats.length < 1) {
-      alert("Select atleast one seat to proceed!");
+      toast.error("Select atleast one seat to proceed!", toastSettings);
+      // alert("Select atleast one seat to proceed!");
     } else {
       setModalShow(true);
     }
   };
 
-  const onConfirm = () => {
+  const onConfirm = async () => {
     const postBookingDetailsJSON = {
       busId: Number(busId),
       travelDate,
       seatNumbers: selectedSeats,
     };
-    dispatch(bookSeats(postBookingDetailsJSON));
+    try {
+      await dispatch(bookSeats(postBookingDetailsJSON)).unwrap();
+    } catch (e) {
+      console.error("Error while booking in frontend", e.message);
+    }
   };
 
   return (

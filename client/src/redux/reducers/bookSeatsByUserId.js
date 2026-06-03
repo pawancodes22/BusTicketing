@@ -19,6 +19,7 @@ export const bookSeats = createAsyncThunk(
       );
       return response.data;
     } catch (e) {
+      console.error("Error in booking seats", e.response.data);
       throw { message: e.response.data };
     }
   },

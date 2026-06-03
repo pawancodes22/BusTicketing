@@ -1,14 +1,14 @@
 const baseUrl = "/api";
 
 const endpoints = {
-  getStationsEndpoint: `${baseUrl}/stationData`,
-  getPopularRoutesEndpoint: `${baseUrl}/popularRoutes`,
-  getBusesByRouteAndDateEndpoint: `${baseUrl}/getBusesByRouteAndDate`,
-  getSeatsByBusIdEndpoint: `${baseUrl}/seat-availability`,
-  registerDataEndpoint: `${baseUrl}/register`,
-  loginUserEndpoint: `${baseUrl}/login`,
-  bookingDetailsEndpoint: `${baseUrl}/bookSeats`,
-  getTicketsEndpoint: `${baseUrl}/getBookedTickets`,
+  getStationsEndpoint: `${baseUrl}/station/stationData`,
+  getPopularRoutesEndpoint: `${baseUrl}/routes/popularRoutes`,
+  getBusesByRouteAndDateEndpoint: `${baseUrl}/buses/getBusesByRouteAndDate`,
+  getSeatsByBusIdEndpoint: `${baseUrl}/seats/seat-availability`,
+  registerDataEndpoint: `${baseUrl}/auth/register`,
+  loginUserEndpoint: `${baseUrl}/auth/login`,
+  bookingDetailsEndpoint: `${baseUrl}/booking/bookSeats`,
+  getTicketsEndpoint: `${baseUrl}/booking/getBookedTickets`,
 };
 
 export default endpoints;
