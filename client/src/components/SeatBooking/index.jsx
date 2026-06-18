@@ -19,11 +19,15 @@ import Footer from "../Footer";
 import { toast } from "react-toastify";
 import { toastSettings } from "../../utils/toastSettings";
 import { useCallback } from "react";
+import axios from "axios";
+import endpoints from "../../utils/endpoints";
+import Razorpay from "razorpay";
+import { getJwtToken } from "../../utils/jwtToken";
 const SeatBooking = () => {
   // Unified structure for seat rows
   const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
+  const [paymentSuccessModal, setIsPaymentSucessModal] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const busDetails = location.state;
   const {
@@ -41,7 +45,7 @@ const SeatBooking = () => {
   const { busId } = useParams();
   const queryParams = new URLSearchParams(location.search);
   const travelDate = queryParams.get("travelDate");
-  const { seatsStatus: rows, seatsAvailabilityFetchStatus } = useSelector(
+  const { seatsStatus: rows } = useSelector(
     (state) => state.getSeatsAvailabilityReducer,
   );
 
@@ -83,7 +87,6 @@ const SeatBooking = () => {
       setSelectedSeats((prev) => prev.filter((item) => item !== seatKey));
     } else {
       if (selectedSeats.length === 6) {
-        // alert("Maximum of 6 seats can only be booked at a time");
         toast.error("Maximum of 6 seats can be selected!", toastSettings);
         return;
       }
@@ -98,28 +101,121 @@ const SeatBooking = () => {
   }, [fetchData]);
 
   const onCheckout = () => {
-    // const postBookingDetailsJSON = {
-    //   busId: Number(busId),
-    //   travelDate,
-    //   seatNumbers: selectedSeats,
-    // };
-    // dispatch(bookSeats(postBookingDetailsJSON));
     if (selectedSeats.length < 1) {
       toast.error("Select atleast one seat to proceed!", toastSettings);
-      // alert("Select atleast one seat to proceed!");
     } else {
       setModalShow(true);
     }
   };
 
-  const onConfirm = async () => {
-    const postBookingDetailsJSON = {
-      busId: Number(busId),
-      travelDate,
-      seatNumbers: selectedSeats,
-    };
+  const checkoutHandler = async (amount) => {
     try {
-      await dispatch(bookSeats(postBookingDetailsJSON)).unwrap();
+      let isPaymentCompleted = false;
+      const jwtToken = getJwtToken();
+      const postBookingDetailsJSON = {
+        busId: Number(busId),
+        travelDate,
+        seatNumbers: selectedSeats,
+      };
+      const { data } = await axios.get(endpoints.getRazorpayKeyEndpoint, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      });
+      const { key: razorpayKey } = data;
+      const { data: orderData } = await axios.post(
+        endpoints.paymentProcessEndpoint,
+        {
+          ...postBookingDetailsJSON,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        },
+      );
+      const { order } = orderData;
+      const options = {
+        key: razorpayKey,
+        amount,
+        currency: "INR",
+        name: "Kutty Travels",
+        description: "Tickets Booking",
+        order_id: order.id, // This is the order_id created in the backend
+        // callback_url: endpoints.paymentVerificationEndpoint, // Your success URL
+        handler: async function (response) {
+          try {
+            const verificationResponse = await axios.post(
+              endpoints.paymentVerificationEndpoint,
+              {
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                busId,
+                travelDate,
+                selectedSeats,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${jwtToken}`,
+                },
+              },
+            );
+            setIsPaymentSucessModal(true);
+            isPaymentCompleted = true;
+          } catch (e) {
+            console.error(e);
+            toast.error("Payment verification failed", toastSettings);
+          }
+        },
+        modal: {
+          ondismiss: async function () {
+            try {
+              if (!isPaymentCompleted) {
+                await axios.delete(endpoints.deleteSeatLocksEndpoint, {
+                  headers: {
+                    Authorization: `Bearer ${jwtToken}`,
+                  },
+                  data: {
+                    busId,
+                    travelDate,
+                    seatNumbers: selectedSeats,
+                  },
+                });
+                toast.error("Payment has been cancelled!", toastSettings);
+              }
+            } catch (e) {
+              console.error(e);
+            }
+          },
+        },
+        prefill: {
+          name: "Gaurav Kumar",
+          // email: "gaurav.kumar@example.com",
+          // contact: "9999999999",
+        },
+        theme: {
+          color: "#F37254",
+        },
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (e) {
+      const errorMessage =
+        e.response?.data?.message || "Error occured while booking seats!";
+      toast.error(errorMessage, toastSettings);
+      if (e.response?.status === 409) {
+        await fetchData();
+        setSelectedSeats([]);
+      }
+    }
+  };
+
+  const onConfirm = async () => {
+    try {
+      const { fare } = busDetails;
+      const noOfSeats = selectedSeats.length;
+      await checkoutHandler(fare * noOfSeats);
     } catch (e) {
       console.error("Error while booking in frontend", e.message);
     }
@@ -128,7 +224,7 @@ const SeatBooking = () => {
   return (
     <div className="seat-booking-bg">
       <NavbarComp />
-      {bookingDataStatus === statusCodes.success && (
+      {paymentSuccessModal && (
         <Overlay
           imgUrl={tickImg}
           msg={

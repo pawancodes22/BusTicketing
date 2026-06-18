@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import statusCodes from "../../utils/statusCodes";
 import axios from "axios";
-import endpoints from "../../utils/endpoints";
+import endpoints from "../../utils/endpoints.js";
+import { getJwtToken } from "../../utils/jwtToken.js";
 
 const initialState = {
   seatsStatus: [],
@@ -12,7 +13,7 @@ export const fetchSeatsAvailability = createAsyncThunk(
   "seatsAvailability/get",
   async (fetchSeatsJSON) => {
     try {
-      const jwtToken = sessionStorage.getItem("jwtToken");
+      const jwtToken = getJwtToken();
       const response = await axios.get(
         `${endpoints.getSeatsByBusIdEndpoint}/${fetchSeatsJSON.busId}?travelDate=${fetchSeatsJSON.travelDate}`,
         {

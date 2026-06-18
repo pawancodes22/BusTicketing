@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import statusCodes from "../../utils/statusCodes";
 import endpoints from "../../utils/endpoints";
 import axios from "axios";
+import { getJwtToken } from "../../utils/jwtToken";
 
 const initialState = {
   ticketsData: [],
@@ -9,7 +10,7 @@ const initialState = {
 };
 
 export const fetchTickets = createAsyncThunk("tickets/fetch", async () => {
-  const jwtToken = sessionStorage.getItem("jwtToken");
+  const jwtToken = getJwtToken();
   const response = await axios.get(endpoints.getTicketsEndpoint, {
     headers: {
       Authorization: `Bearer ${jwtToken}`,

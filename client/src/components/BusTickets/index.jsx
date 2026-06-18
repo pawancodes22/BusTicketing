@@ -8,12 +8,16 @@ import { FaBus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import NavbarComp from "../NavbarComp";
 import Footer from "../Footer";
+import statusCodes from "../../utils/statusCodes";
+import { Oval } from "react-loader-spinner";
+import { current } from "@reduxjs/toolkit";
 const BusTickets = () => {
   const dispatch = useDispatch();
-  const { busesByRouteAndDateData } = useSelector(
-    (state) => state.getBusesByRouteAndDateReducer,
-  );
+  const { busesByRouteAndDateData, busesByRouteAndDateFetchStatus } =
+    useSelector((state) => state.getBusesByRouteAndDateReducer);
+
   const [busTypeFilter, alterBusTypeFilter] = useState("");
+  const [filteredBusData, setFilteredBusData] = useState([]);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const departureStation = queryParams.get("departureStation");
@@ -22,13 +26,7 @@ const BusTickets = () => {
   const changeBusType = (e, busType) => {
     alterBusTypeFilter(busType);
   };
-  // console.log(
-  //   "bid",
-  //   busesByRouteAndDateData,
-  //   departureStation,
-  //   arrivalStation,
-  //   travelDate
-  // );
+
   useEffect(() => {
     const journeyDetailsJSON = {
       departureStation,
@@ -38,6 +36,18 @@ const BusTickets = () => {
     };
     dispatch(fetchBusesByRouteAndDate(journeyDetailsJSON));
   }, [dispatch, busTypeFilter]);
+
+  useEffect(() => {
+    if (busesByRouteAndDateData && busesByRouteAndDateData?.length < 1) {
+      return;
+    }
+    const currentTime = new Date().toTimeString().slice(0, 5);
+    const filteredData = busesByRouteAndDateData?.filter(
+      (busItem) =>
+        busItem.departureTime >= currentTime && busItem.noOfSeats > 0,
+    );
+    setFilteredBusData(filteredData);
+  }, [busesByRouteAndDateData]);
 
   return (
     <div className="bt-page-bg">
@@ -100,10 +110,24 @@ const BusTickets = () => {
             </span>
           </div>
         </div>
-        {busesByRouteAndDateData.length > 0 ? (
+        {busesByRouteAndDateFetchStatus === statusCodes.loading ||
+        busesByRouteAndDateFetchStatus === statusCodes.idle ? (
+          <div className="spinner-div">
+            <Oval
+              height={50}
+              width={50}
+              color="#b91c1c"
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#b91c1c"
+              strokeWidth={4}
+              strokeWidthSecondary={4}
+            />{" "}
+          </div>
+        ) : filteredBusData.length > 0 ? (
           <ul className="bus-items-style ps-0 ms-md-3 flex-grow-1">
-            {busesByRouteAndDateData &&
-              busesByRouteAndDateData.map((item) => (
+            {filteredBusData &&
+              filteredBusData.map((item) => (
                 <li
                   key={item.busId}
                   className="bg-white border border-2 rounded-2 p-3 mb-3"
@@ -199,7 +223,7 @@ const BusTickets = () => {
           </ul>
         ) : (
           <div className="no-buses ms-md-3 flex-grow-1 rounded-2 p-3">
-            <h1 className="fs-5" style={{ color: "#0088bd" }}>
+            <h1 className="fs-5" style={{ color: "#212529" }}>
               No buses are available for the selected route!
             </h1>
           </div>

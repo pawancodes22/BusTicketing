@@ -105,3 +105,11 @@
 .text-span {
   color: #b91c1c;
 }
+
+.spinner-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 300px;
+}

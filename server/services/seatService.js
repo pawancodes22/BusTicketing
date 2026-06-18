@@ -7,7 +7,7 @@ const getSeatCount = async (busId, travelDate) => {
     SELECT booking_details.seat_number, bookings.bus_id, 1 AS is_reserved
     FROM bookings 
     JOIN booking_details ON bookings.booking_id = booking_details.booking_id
-    WHERE bookings.bus_id = ${busId} AND bookings.travel_date = '${travelDate}'
+    WHERE bookings.bus_id = ? AND bookings.travel_date = ?
   )
   SELECT 
     dsa.seat_number AS seatNumber, 
@@ -19,11 +19,29 @@ const getSeatCount = async (busId, travelDate) => {
   LEFT JOIN real_time_availability rta 
   ON dsa.seat_number = rta.seat_number AND dsa.bus_id = rta.bus_id
   WHERE 
-    buses.bus_id = ${busId};
+    buses.bus_id = ?;
   `;
-  const data = await db.all(query);
+  const data = await db.all(query, [busId, travelDate, busId]);
   const reservedSeats = data.filter((item) => item.isReserved === 0);
   return { noOfSeats: reservedSeats.length.toString() };
 };
 
+const checkSeatAvailability = async (busId, travelDate, seatNumbers) => {
+  const db = getDB();
+  const placeholders = seatNumbers.map(() => "?").join(",");
+
+  const isSeatAvailableQuery = `
+      SELECT *
+      FROM booking_details
+      WHERE bus_id=? AND travel_date=? AND seat_number IN (${placeholders})
+    `;
+  const matchedSeats = await db.all(isSeatAvailableQuery, [
+    busId,
+    travelDate,
+    ...seatNumbers,
+  ]);
+  return matchedSeats;
+};
+
 module.exports.getSeatCount = getSeatCount;
+module.exports.checkSeatAvailability = checkSeatAvailability;

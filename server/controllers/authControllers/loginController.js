@@ -13,8 +13,13 @@ const loginController = async (request, response) => {
     if (dbUser) {
       const isPasswordTrue = await bcrypt.compare(password, dbUser.password);
       if (isPasswordTrue) {
-        const payload = { userId: dbUser.id, username };
-        const jwtToken = jwt.sign(payload, "MY_SECRET_TOKEN");
+        const payload = {
+          userId: dbUser.id,
+          username,
+          name: dbUser.name,
+          gender: dbUser.gender,
+        };
+        const jwtToken = jwt.sign(payload, process.env.JWT_SECRET_KEY);
         response.send({ jwtToken });
       } else {
         response.status(400);

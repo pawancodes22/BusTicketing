@@ -12,9 +12,10 @@ INNER JOIN stations AS to_stations ON routes.to_id = to_stations.station_id
 INNER JOIN booking_details ON booking_details.booking_id = bookings.booking_id
 WHERE userId = ?
 GROUP BY 
-    buses.bus_id, bookings.travel_date
+    buses.bus_id, bookings.travel_date, bookings.booking_id
     ORDER BY
-    bookings.travel_date DESC;
+    bookings.travel_date ASC,
+    bookings.booking_id DESC;
     ;`;
   const dbResponse = await db.all(getBookingDetailsQuery, [userDetails.userId]);
   const modifiedResponse = await dbResponse.map((item) => ({

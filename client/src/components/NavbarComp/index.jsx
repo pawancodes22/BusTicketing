@@ -7,15 +7,16 @@ import profileImg from "../../assets/profileImage.png";
 import logo from "../../assets/kuttyTravelLogo6.png";
 import "./index.css";
 import { useState } from "react";
+import { getJwtToken, removeJwtToken } from "../../utils/jwtToken";
 const NavbarComp = () => {
-  const isUserLoggedIn = sessionStorage.getItem("jwtToken");
+  const isUserLoggedIn = getJwtToken();
   const [toggleBarStatus, setToggleBarStatus] = useState(false);
   const onLogOut = () => {
-    sessionStorage.removeItem("jwtToken");
+    removeJwtToken();
     window.location.reload();
   };
   return (
-    <Navbar expand="lg" className="z-4">
+    <Navbar expand="lg" className="z-4 navbar-dark">
       <Container>
         <Navbar.Brand
           href="/"

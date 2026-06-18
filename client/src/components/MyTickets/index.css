@@ -82,3 +82,41 @@ p {
 .mt-seat-no {
   background-color: #b91c1c;
 }
+
+.upcoming-ul {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+.past-ul {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+.trip-toggler {
+  display: flex;
+}
+.trip-toggler > button {
+  padding: 10px;
+}
+
+.toggler-btn-1 {
+  border-radius: 5px 0px 0px 5px;
+  border-right: none;
+  transition: all 0.4s;
+}
+
+.toggler-btn-2 {
+  border-radius: 0px 5px 5px 0px;
+  transition: all 0.4s;
+}
+
+.active-toggle-btn {
+  background-color: #b91c1c;
+  color: white;
+}
+
+.inactive-toggle-btn {
+  background-color: #f3f4f6;
+  color: #374151;
+}

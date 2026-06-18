@@ -27,9 +27,9 @@ const Footer = () => {
             <li>
               <a href="/my-tickets">My Tickets</a>
             </li>
-            <li>
+            {/* <li>
               <a href="/login">Login</a>
-            </li>
+            </li> */}
           </ul>
         </div>
 

@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import endpoints from "../../utils/endpoints";
+import endpoints from "../../utils/endpoints.js";
 import statusCodes from "../../utils/statusCodes";
+import { getJwtToken } from "../../utils/jwtToken.js";
 
 export const bookSeats = createAsyncThunk(
   "seats/book",
   async (bookingDetailsJSON) => {
     try {
-      const jwtToken = sessionStorage.getItem("jwtToken");
+      const jwtToken = getJwtToken();
       const response = await axios.post(
         endpoints.bookingDetailsEndpoint,
         bookingDetailsJSON,

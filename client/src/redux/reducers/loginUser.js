@@ -2,12 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import endpoints from "../../utils/endpoints";
 import statusCodes from "../../utils/statusCodes";
+import { setJwtToken } from "../../utils/jwtToken";
 
 export const postLoginData = createAsyncThunk(
   "user/login",
   async (loginJSON) => {
     try {
       const response = await axios.post(endpoints.loginUserEndpoint, loginJSON);
+
       return response.data.jwtToken;
     } catch (e) {
       throw { message: e.response.data };
@@ -33,7 +35,7 @@ const loginSlice = createSlice({
     builder.addCase(postLoginData.fulfilled, (state, action) => {
       state.loginData = action.payload;
       state.loginDataPostStatus = statusCodes.success;
-      sessionStorage.setItem("jwtToken", action.payload);
+      setJwtToken(action.payload);
     });
     builder.addCase(postLoginData.rejected, (state, action) => {
       state.loginData = action.error.message;

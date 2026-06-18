@@ -39,6 +39,16 @@ const getSeatAvailabilityByBusIdController = async (request, response) => {
     FROM bookings 
     JOIN booking_details ON bookings.booking_id = booking_details.booking_id
     WHERE bookings.bus_id = ? AND bookings.travel_date = ?
+    UNION
+    SELECT
+    seat_number,
+    bus_id,
+    1 AS is_reserved
+FROM seat_locks
+WHERE
+    bus_id = ?
+    AND travel_date = ?
+    AND expires_at > ?
   )
   SELECT 
     dsa.seat_number AS seatNumber, 
@@ -52,7 +62,15 @@ const getSeatAvailabilityByBusIdController = async (request, response) => {
   WHERE 
     buses.bus_id = ?;
     `;
-  const data = await db.all(query, [busId, travelDate, busId]);
+  const now = new Date().toISOString();
+  const data = await db.all(query, [
+    busId,
+    travelDate,
+    busId,
+    travelDate,
+    now,
+    busId,
+  ]);
   const result = {};
   data.forEach((item) => {
     result[item.seatNumber] = item.isReserved;
