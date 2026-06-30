@@ -22,6 +22,7 @@
 .tickets-second-bg {
   background-color: white;
   width: 80%;
+  overflow-x: scroll;
   @media (max-width: 767px) {
     width: 98%;
   }
@@ -69,7 +70,7 @@ p {
 }
 
 .mt-ticket {
-  font-size: 12px;
+  font-size: 10px;
   @media (min-width: 992px) {
     font-size: 14px;
   }
@@ -86,11 +87,17 @@ p {
 .upcoming-ul {
   height: 80vh;
   overflow-y: scroll;
+  @media (max-width: 767px) {
+    padding-left: 0px;
+  }
 }
 
 .past-ul {
   height: 80vh;
   overflow-y: scroll;
+  @media (max-width: 767px) {
+    padding-left: 0px;
+  }
 }
 
 .trip-toggler {
@@ -104,11 +111,17 @@ p {
   border-radius: 5px 0px 0px 5px;
   border-right: none;
   transition: all 0.4s;
+  @media (max-width: 767px) {
+    font-size: 12px;
+  }
 }
 
 .toggler-btn-2 {
   border-radius: 0px 5px 5px 0px;
   transition: all 0.4s;
+  @media (max-width: 767px) {
+    font-size: 12px;
+  }
 }
 
 .active-toggle-btn {

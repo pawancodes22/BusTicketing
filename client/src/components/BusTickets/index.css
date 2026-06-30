@@ -113,3 +113,18 @@
   width: 100%;
   min-height: 300px;
 }
+
+.apply-filters-heading {
+  font-size: 23px;
+  /* @media (min-width: 1024px) {
+    font-size: 22px;
+  } */
+}
+
+.labels-container {
+  font-size: 16px;
+}
+
+.labels-container > h2 {
+  font-size: 20px;
+}

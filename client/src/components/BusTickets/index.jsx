@@ -15,7 +15,6 @@ const BusTickets = () => {
   const dispatch = useDispatch();
   const { busesByRouteAndDateData, busesByRouteAndDateFetchStatus } =
     useSelector((state) => state.getBusesByRouteAndDateReducer);
-
   const [busTypeFilter, alterBusTypeFilter] = useState("");
   const [filteredBusData, setFilteredBusData] = useState([]);
   const location = useLocation();
@@ -41,11 +40,19 @@ const BusTickets = () => {
     if (busesByRouteAndDateData && busesByRouteAndDateData?.length < 1) {
       return;
     }
+    const today = new Date();
+    const todayString = today.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "2-digit",
+    });
     const currentTime = new Date().toTimeString().slice(0, 5);
-    const filteredData = busesByRouteAndDateData?.filter(
-      (busItem) =>
-        busItem.departureTime >= currentTime && busItem.noOfSeats > 0,
-    );
+    const filteredData = busesByRouteAndDateData?.filter((busItem) => {
+      if (busItem.departureDate === todayString) {
+        return busItem.departureTime >= currentTime && busItem.noOfSeats > 0;
+      }
+      return true;
+    });
     setFilteredBusData(filteredData);
   }, [busesByRouteAndDateData]);
 
@@ -62,13 +69,13 @@ const BusTickets = () => {
           travelDate={travelDate}
         />
       </div>
-      <div className="p-3 d-flex">
+      <div className="p-1 p-md-3 d-flex">
         <div className="d-none d-md-block">
-          <h1>
+          <h1 className="apply-filters-heading">
             Apply <span className="text-span">Filters</span>
           </h1>
-          <div className="border-2 p-2 bg-white d-flex flex-column">
-            <h2>Bus Types</h2>
+          <div className="border-2 p-3 bg-white d-flex flex-column labels-container">
+            <h2 className="">Bus Types</h2>
             <label>
               <input
                 type="radio"
@@ -102,7 +109,7 @@ const BusTickets = () => {
               <span>A/C Seater</span>
             </label>
             <span
-              className="text-span"
+              className="text-span mt-2"
               style={{ cursor: "pointer" }}
               onClick={() => alterBusTypeFilter("")}
             >
@@ -180,7 +187,7 @@ const BusTickets = () => {
                       to={`/seat-booking/${item.busId}?travelDate=${travelDate}`}
                       state={{ ...item, arrivalStation, departureStation }}
                     >
-                      <button className="rounded-2 bus-reserve-seat-btn">
+                      <button className="rounded-2 bus-reserve-seat-btn mt-2">
                         Reserve Seat
                       </button>
                     </Link>

@@ -64,13 +64,13 @@ const MyTickets = () => {
     <div className="my-tickets-bg">
       <NavbarComp />
       <div className="my-ticket-page flex-grow-1 d-flex flex-column align-items-center justify-content-center py-5">
-        <div className="tickets-second-bg rounded-4 p-4">
+        <div className="tickets-second-bg rounded-4 p-2 p-md-4">
           <h1 className="text-center">
             My <span className="text-span">Tickets</span>
           </h1>
           <div className="trip-toggler">
             <button
-              className={`toggler-btn-1 ${
+              className={`fs-xs-6 toggler-btn-1 ${
                 isUpcomingTripsOn ? "active-toggle-btn" : "inactive-toggle-btn"
               }`}
               onClick={() => setIsUpcomingTripsOn(true)}
@@ -88,7 +88,7 @@ const MyTickets = () => {
           </div>
           {isUpcomingTripsOn && (
             <div>
-              <h3 className="text-left mt-5 sticky-top z-1">
+              <h3 className="text-left mt-4 mt-md-5 sticky-top z-1">
                 Upcoming <span className="text-span">Trips</span>
               </h3>
 
@@ -98,12 +98,12 @@ const MyTickets = () => {
                     return (
                       <li
                         key={index}
-                        className="list-unstyled border border-1 shadow-lg rounded-1 p-1 position-relative my-4"
+                        className="list-unstyled border border-1 shadow-lg rounded-1 p-1 position-relative mb-4"
                       >
-                        <div className="z-index-1 position-absolute ticket-page-bus-icon bg-white border rounded-5 d-flex justify-content-center align-items-center">
+                        <div className="z-index-1 position-absolute ticket-page-bus-icon bg-white border rounded-5 d-none d-md-flex justify-content-center align-items-center">
                           <FaBusAlt />
                         </div>
-                        <div className="ms-md-5 p-4 pb-2 d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <div className="ms-md-5 p-1 p-md-4 pb-2 d-flex flex-column flex-md-row justify-content-between align-items-center">
                           <div>
                             <div className="d-flex align-items-center gap-2">
                               <p className="mt-station fw-bold">
@@ -130,7 +130,7 @@ const MyTickets = () => {
                           </ul>
                         </div>
                         <hr className="my-1 shadow-sm" />
-                        <div className="ms-md-5 p-4 pb-2 d-flex gap-5 flex-row mt-ticket justify-content-center justify-content-md-start">
+                        <div className="ms-md-5 p-1 p-md-4 pb-2 d-flex gap-5 flex-row mt-ticket justify-content-center justify-content-md-start">
                           <div>
                             <p className="text-uppercase">Departure</p>
                             <div className="d-flex gap-1">
@@ -166,7 +166,7 @@ const MyTickets = () => {
           )}
           {!isUpcomingTripsOn && (
             <div>
-              <h3 className="text-left mt-5">
+              <h3 className="text-left mt-4 mt-md-5">
                 Past <span className="text-span">Trips</span>
               </h3>
               {pastTrips.length > 0 ? (
@@ -175,12 +175,12 @@ const MyTickets = () => {
                     return (
                       <li
                         key={index}
-                        className="list-unstyled border border-1 shadow-lg rounded-1 p-1 position-relative my-4"
+                        className="list-unstyled border border-1 shadow rounded-1 p-1 position-relative mb-4"
                       >
-                        <div className="z-index-1 position-absolute ticket-page-bus-icon bg-white border rounded-5 d-flex justify-content-center align-items-center">
+                        <div className="z-index-1 ticket-page-bus-icon bg-white border rounded-5 d-none d-md-flex justify-content-center align-items-center ">
                           <FaBusAlt />
                         </div>
-                        <div className="ms-md-5 p-4 pb-2 d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <div className="ms-md-5 p-1 p-md-4 pb-2 d-flex flex-column flex-md-row justify-content-between align-items-center">
                           <div>
                             <div className="d-flex align-items-center gap-2">
                               <p className="mt-station fw-bold">
@@ -207,7 +207,7 @@ const MyTickets = () => {
                           </ul>
                         </div>
                         <hr className="my-1 shadow-sm" />
-                        <div className="ms-md-5 p-4 pb-2 d-flex gap-5 flex-row mt-ticket justify-content-center justify-content-md-start">
+                        <div className="ms-md-5 p-1 p-md-4 pb-2 d-flex gap-5 flex-row mt-ticket justify-content-center justify-content-md-start">
                           <div>
                             <p className="text-uppercase">Departure</p>
                             <div className="d-flex gap-1">
